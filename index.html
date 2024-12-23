@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--웹 페이지 설정들들-->
     <meta charset="UTF-8" />
+    <!--인코딩방식-->
     <title>나의 할일</title>
+    <!--브라우저 탭이나 북마크에서 표시될 페이지 제목목-->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
@@ -11,14 +14,17 @@
     <script src="js/todo.js"></script>
   </head>
   <body>
+    <!--실제 화면에 표시되는 부분들-->
     <main>
       <h1>나의 할일</h1>
       <form id="frmTodo" name="frmTodo" autocomplete="off">
+        <!--자동완성OFF-->
         <dl>
           <dt>작업 제목</dt>
           <dd>
             <input type="text" name="title" />
             <div class="error dn" id="error-title"></div>
+            <!--display: none 클래스(에러가 없으면 숨김)-->
           </dd>
         </dl>
         <dl>
@@ -42,6 +48,7 @@
         <input type="text" name="skey" placeholder="검색어 입력" />
         정렬:
         <select name="sort">
+          <!--<select> 정렬기준을 선택 / 드롭다운-->
           <option value="seq_asc">등록순서(오름차순)</option>
           <option value="seq_desc">등록순서(내림차순)</option>
           <option value="deadline_asc">마감일(오름차순)</option>

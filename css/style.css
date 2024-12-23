@@ -4,7 +4,7 @@
   font-family: "Jua", serif;
   box-sizing: border-box;
   color: #000;
-  outline: none;
+  outline: none; /* 포커스 시 외관선 제거 */
 }
 
 html {
@@ -15,7 +15,7 @@ html {
 main {
   max-width: 650px;
   min-width: 450px;
-  margin: 40px auto;
+  margin: 40px auto; /* 중앙정렬 */
   background: #fff;
   border-radius: 25px;
   padding: 35px;
@@ -23,11 +23,11 @@ main {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none; /* 기본 밑줄을 제거 */
 }
 
 img {
-  border: 0;
+  border: 0; /* 이미지 기본 테두리 제거 */
 }
 
 ul,
@@ -44,7 +44,7 @@ li {
 }
 
 .dn {
-  display: none !important;
+  display: none !important; /* 우선순위를 높였음 */
 }
 
 input[type="text"],
@@ -55,7 +55,7 @@ select {
   border-radius: 3px;
   padding: 0 10px;
   font-size: 1.5rem;
-  width: 100%;
+  width: 100%; /* 컨테이너에 맞춤 */
 }
 
 select {
@@ -66,30 +66,32 @@ textarea {
   border: 1px solid #ccc;
   height: 200px;
   width: 100%;
-  resize: none;
+  resize: none; /* 사용자가 입력영역의 크기를 조정할 수 없도록 설정 */
   padding: 10px;
   border-radius: 3px;
 }
 
 h1 {
-  border-bottom: 3px solid #000;
+  border-bottom: 3px solid #000; /* 텍스트 아래에 검은색 선 */
   padding-bottom: 7px;
-  margin: 0 0 30px;
+  margin: 0 0 30px; /* 아래 여백 */
 }
 
 /* 공통 E */
 
 /* 할일 등록 양식 S */
 #frmTodo dl + dl {
+  /* dl이 연달아 있을 때 위아래 간격 관련*/
   margin-top: 10px;
 }
 
 #frmTodo dt {
   margin-bottom: 5px;
-  font-size: 1.15rem;
+  font-size: 1.15rem; /*제목 텍스트 크기*/
 }
 
 .error {
+  /* 에러 메시지 관련 */
   color: #8789f7;
   padding: 5px 10px;
   margin: 5px 0;
@@ -105,10 +107,10 @@ h1 {
 
 .items > .item.on .description {
   display: block;
-} /* 처음엔 안보이는데 클릭하면 보이게 할 거 */
+} /* 처음엔 안보이는데 클릭하면 보이게 할 거 / .on 클래스가 추가되면 설명 보이도록 설정 */
 
 .items > .item.done {
-  text-decoration: line-through;
+  text-decoration: line-through; /* 완료시 취소선 표시 */
 }
 
 /* 할일 목록 E */

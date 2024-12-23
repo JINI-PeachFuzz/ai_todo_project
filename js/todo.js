@@ -1,29 +1,32 @@
 const todo = {
   tpl: null,
   items: [], // 작업 목록
-  itemsSearched: null, // 검색된 작업 목록
+  itemsSearched: null, // 검색된 작업 목록 / 비어있는것도 검색이되는거니까 null로 바꿈
 
   // 초기에 실행할 영역
   init() {
+    // 초기화화
+    // init() : 페이지 로드 시 초기설정과 기존 데이터를 불러오는 역할 -> 로드해서 템플릿을 설정해줌줌
     // 템플릿 HTML 추출
     this.tpl = document.getElementById("tpl").innerHTML;
 
     // 저장된 작업 목록 조회 및 출력
-    const data = localStorage.getItem("todos");
+    const data = localStorage.getItem("todos"); // localStorage에서 기존 저장된 할 일 데이터를 불러옴
     if (data) {
-      this.items = JSON.parse(data);
+      this.items = JSON.parse(data); // JSON 형식으로 저장된 데이터를 배열이나 객체로 변환하는 역할
+      // 이 배열을 가지고 작업관리를 할 수 있음
     }
 
-    this.render();
+    this.render(); // 할 일 목록을 화면에 표시
   },
   // 작업 등록
   add(title, description, deadline) {
-    const seq = Date.now();
-    this.items.push({ seq, title, description, deadline, done: false });
+    const seq = Date.now(); // 현재 시간을 기준으로 seq를 생성성
+    this.items.push({ seq, title, description, deadline, done: false }); // 입력받은 내용을 배열에 추가
 
-    this.save(); // 추가된 작업 저장
+    this.save(); // 추가된 작업 저장 // localStorage에 배열 데이터를 JSON 문자열로 변환(JSON.stringify)하여 저장
 
-    this.render(); // 화면 갱신
+    this.render(); // 화면 갱신 // this.items를 기반으로 동적으로 돔에 추가해줌
   },
   // 작업 삭제
   remove(seq) {
@@ -46,6 +49,7 @@ const todo = {
     const domParser = new DOMParser();
 
     const items = this.itemsSearched ? this.itemsSearched : this.items;
+    // 검색해서 있으면 itemsSearched여기로 결과가 items로 넘어가는거 // 원본데이터를 바꾸면 안되니까
 
     for (const { seq, title, description, deadline, done } of items) {
       let html = this.tpl;
@@ -80,10 +84,11 @@ const todo = {
 
       // 작업 완료, 작업중 처리
       const doneEls = document.getElementsByName(`done_${seq}`);
-      const itemIndex = this.items.findIndex((item) => item.seq === seq);
+      const itemIndex = this.items.findIndex((item) => item.seq === seq); // 값이 넘어오면 index번호로 확인인
       for (const el of doneEls) {
         el.addEventListener("click", function () {
-          const done = this.value === "true";
+          // 라디오 버튼 클릭 이벤트로 done 값을 변경
+          const done = this.value === "true"; // 체크했을 때 아이템쪽에 false일때 done 클래스를 추가해야하므로로
           todo.items[itemIndex].done = done;
           todo.render();
         });
@@ -91,13 +96,14 @@ const todo = {
     }
   },
   accodianView(el) {
+    // 아코디언 효과 .on 클래스제거 -> 선택한 항목에 .on클래스 추가 -> 내용나오게게
     const items = document.querySelectorAll(".items > .item");
     items.forEach((item) => item.classList.remove("on"));
 
     el.classList.add("on");
   },
   /**
-   * items(할일 목록)를 localStorage로 저장
+   * items(할일 목록)를 JSON 문자열로 변환 후 localStorage로 저장
    */
   save() {
     const data = JSON.stringify(this.items);
