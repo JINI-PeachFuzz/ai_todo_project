@@ -1,11 +1,29 @@
 const todo = {
+  tpl: null,
   items: [], // 작업 목록
+  itemsSearched: null, // 검색된 작업 목록
+
+  // 초기에 실행할 영역
+  init() {
+    // 템플릿 HTML 추출
+    this.tpl = document.getElementById("tpl").innerHTML;
+
+    // 저장된 작업 목록 조회 및 출력
+    const data = localStorage.getItem("todos");
+    if (data) {
+      this.items = JSON.parse(data);
+    }
+
+    this.render();
+  },
   // 작업 등록
   add(title, description, deadline) {
     const seq = Date.now();
     this.items.push({ seq, title, description, deadline, done: false });
 
-    this.render(); // 화면 갱신 / 추가하고 나면 갱신해줘야하니까
+    this.save(); // 추가된 작업 저장
+
+    this.render(); // 화면 갱신
   },
   // 작업 삭제
   remove(seq) {
@@ -15,23 +33,100 @@ const todo = {
     // splice로 해당 순서 번호 항목 제거
     this.items.splice(index, 1);
 
+    this.save(); // 작업 목록 저장
+
     // 화면 갱신
-    this.render();
+    this.render(); // 화면 갱신 / 추가하고 나면 갱신해줘야하니까
   },
   // 작업 목록 출력, 갱신
   render() {
     const itemsEl = document.querySelector(".items");
     itemsEl.innerHTML = "";
 
-    for (const { seq, title, description, deadline } of this.items) {
-      const li = document.createElement("li");
-      li.append(title);
-      itemsEl.append(li);
+    const domParser = new DOMParser();
+
+    const items = this.itemsSearched ? this.itemsSearched : this.items;
+
+    for (const { seq, title, description, deadline, done } of items) {
+      let html = this.tpl;
+      const checkedTrue = done ? " checked" : "";
+      const checkedFalse = done ? "" : " checked";
+
+      html = html
+        .replace(/#{seq}/g, seq) // 정형표현식? g는 전체
+        .replace(/#{title}/g, title)
+        .replace(/#{description}/g, description.replace(/\n/g, "<br>")) // 줄개행문자 br태그로 변경시켰음
+        .replace(/#{deadline}/g, deadline)
+        .replace(/#{checkedTrue}/g, checkedTrue)
+        .replace(/#{checkedFalse}/g, checkedFalse)
+        .replace(/#{addClass}/g, done ? " done" : "");
+
+      const dom = domParser.parseFromString(html, "text/html");
+      const itemEl = dom.querySelector("li");
+      itemsEl.append(itemEl);
+
+      const titWrapEl = itemEl.querySelector(".tit-wrap");
+      titWrapEl.addEventListener("click", function () {
+        todo.accodianView(this.parentElement);
+      });
+
+      // 삭제 처리
+      const removeEl = itemEl.querySelector(".remove");
+      removeEl.addEventListener("click", function () {
+        if (confirm("정말 삭제하겠습니까?")) {
+          todo.remove(seq);
+        }
+      });
+
+      // 작업 완료, 작업중 처리
+      const doneEls = document.getElementsByName(`done_${seq}`);
+      const itemIndex = this.items.findIndex((item) => item.seq === seq);
+      for (const el of doneEls) {
+        el.addEventListener("click", function () {
+          const done = this.value === "true";
+          todo.items[itemIndex].done = done;
+          todo.render();
+        });
+      }
     }
+  },
+  accodianView(el) {
+    const items = document.querySelectorAll(".items > .item");
+    items.forEach((item) => item.classList.remove("on"));
+
+    el.classList.add("on");
+  },
+  /**
+   * items(할일 목록)를 localStorage로 저장
+   */
+  save() {
+    const data = JSON.stringify(this.items);
+    localStorage.setItem("todos", data);
+    this.itemsSearched = null;
+    frmSearch.skey.value = "";
+  },
+  // 정렬
+  sort(field, order) {
+    this.items.sort((item1, item2) => {
+      switch (field) {
+        case "deadline":
+          let gap = new Date(item2.deadline) - new Date(item1.deadline);
+          return order === "desc" ? gap : -gap;
+        default:
+          return order == "desc"
+            ? item2.seq - item1.seq
+            : item1.seq - item2.seq;
+      }
+    });
+
+    this.render();
   },
 };
 
 window.addEventListener("DOMContentLoaded", function () {
+  // 초기화
+  todo.init();
+
   // 양식 태그의 기본 동작 차단
   frmTodo.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -101,4 +196,25 @@ window.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
+
+  // 작업 목록 정렬 처리 S
+  frmSearch.sort.addEventListener("change", function () {
+    const [field, order] = this.value.split("_");
+    todo.sort(field, order);
+  });
+  // 작업 목록 정렬 처리 E
+
+  // 키워드 검색 처리 S
+  frmSearch.skey.addEventListener("change", function () {
+    const skey = this.value.trim();
+    todo.itemsSearched = skey
+      ? todo.items.filter(
+          ({ title, description }) =>
+            title.includes(skey) || description.includes(skey)
+        )
+      : null;
+
+    todo.render();
+  });
+  // 키워드 검색 처리 E
 });
