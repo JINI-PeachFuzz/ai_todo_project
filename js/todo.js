@@ -108,7 +108,7 @@ const todo = {
   save() {
     const data = JSON.stringify(this.items);
     localStorage.setItem("todos", data);
-    this.itemsSearched = null;
+    this.itemsSearched = null; // 검색에 대한 초기화
     frmSearch.skey.value = "";
   },
   // 정렬
@@ -215,10 +215,11 @@ window.addEventListener("DOMContentLoaded", function () {
     const skey = this.value.trim();
     todo.itemsSearched = skey
       ? todo.items.filter(
+          // 필터는 새로운 배열객체를 만들려고
           ({ title, description }) =>
             title.includes(skey) || description.includes(skey)
         )
-      : null;
+      : null; // 검색어가 없을때는 원래 형태로 나오게 널값넣었음
 
     todo.render();
   });
