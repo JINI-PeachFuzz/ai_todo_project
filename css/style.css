@@ -11,7 +11,7 @@ html {
   font-size: 13px; /* 1rem = 13px */
   /* background: #f8f8f8; */
   /* background: url("../img/turkey.jpg"); */
-  position: fixed;
+  /* position: fixed; */
   width: 100vw;
   height: 100vh;
   background-size: cover;
@@ -213,7 +213,7 @@ h1 {
   padding: 0;
 }
 
-.items > .item.done {
+.items > .item.done .tit-wrap {
   text-decoration: line-through; /* 완료시 취소선 표시 */
 }
 
