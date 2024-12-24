@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--웹 페이지 설정들들-->
+    <!--웹 페이지 설정들-->
     <meta charset="UTF-8" />
     <!--인코딩방식-->
     <title>나의 할일</title>
-    <!--브라우저 탭이나 북마크에서 표시될 페이지 제목목-->
+    <!--브라우저 탭이나 북마크에서 표시될 페이지 제목-->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
@@ -46,9 +46,9 @@
 
       <form name="frmSearch" class="search-box">
         <input type="text" name="skey" placeholder="검색어 입력" />
-        정렬:
         <select name="sort">
           <!--<select> 정렬기준을 선택 / 드롭다운-->
+          <!--위는 2배 아래는 1배기준으로 스타일 만들거임-->
           <option value="seq_asc">등록순서(오름차순)</option>
           <option value="seq_desc">등록순서(내림차순)</option>
           <option value="deadline_asc">마감일(오름차순)</option>
@@ -65,26 +65,30 @@
             <span class="tit">#{title}</span>
           </div>
           <div class="description">
-            #{description}
+            <div class="content">#{description}</div>
 
+            <!--할일을 여러개 입력했을 때 나중에 한걸 완료처리하면 전체가 작업완료처리가 되는 현상발생
+            done 이 위와 아래에 같이 먹혀서 동일한효과가 발생한건데 #{seq}를 추가해놓으면 생성시 순서가 같이 추가가 되기 때문에
+            어떻게 보면 각각의 요소처럼 개별로 완료처리가 가능해짐
+            label과 input의 관계때문에 발생하는 오류-->
             <div class="controls">
               <div class="done-wrap">
                 <input
                   type="radio"
                   name="done_#{seq}"
                   value="true"
-                  id="done-true"
+                  id="done-true-#{seq}"
                   #{checkedTrue}
                 />
-                <label for="done-true">작업완료</label>
+                <label for="done-true-#{seq}">작업완료</label>
                 <input
                   type="radio"
                   name="done_#{seq}"
                   value="false"
-                  id="done-false"
+                  id="done-false-#{seq}"
                   #{checkedFalse}
                 />
-                <label for="done-false">작업중</label>
+                <label for="done-false-#{seq}">작업중</label>
               </div>
               <button type="button" class="remove">
                 <i class="xi-close"></i>

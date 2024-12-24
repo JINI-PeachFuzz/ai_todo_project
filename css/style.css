@@ -26,6 +26,7 @@ body::before {
   width: 100%;
   height: 100%;
   background: url("../img/turkey.jpg") no-repeat center/cover;
+  /* background-size: cover; */
   filter: opacity(0.7); /* 배경 투명도 적용 */
   z-index: -1; /* 콘텐츠 뒤로 이동 */
 }
@@ -116,19 +117,121 @@ h1 {
   box-shadow: 2px 2px 5px #8789f7;
   border-radius: 2px;
 }
+
+/* 속성은 대괄호 형태로도 범위를 좁힐 수 있음 */
+#frmTodo button[type="submit"] {
+  background: #8789f7;
+  color: #fff;
+  display: block;
+  width: 100%;
+  height: 45px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: 0;
+  border-radius: 3px;
+}
+
+#frmTodo button[type="submit"]:hover {
+  background: #8789f7ae;
+}
+
+/* 2:1 비율 */
+.search-box {
+  display: flex;
+  margin: 25px 0 15px 0;
+}
+
+.search-box input[type="text"] {
+  width: 0;
+  flex-grow: 2;
+}
+
+.search-box select {
+  width: 0;
+  flex-grow: 1;
+  margin-left: 5px;
+}
+
 /* 할일 등록 양식 E */
 
 /* 할일 목록 S */
+.items > .item {
+  padding: 15px 25px;
+}
+
+.items > .item + .item {
+  border-top: 2px dashed #ccc; /*---형태로 경계선생김*/
+}
+
+.items > .item .tit-wrap {
+  font-size: 1.25rem;
+}
 .items > .item .description {
   display: none;
+  transition: all 0.5s; /* 애니메이션 효과 */
 }
 
 .items > .item.on .description {
-  display: block;
+  display: flex;
 } /* 처음엔 안보이는데 클릭하면 보이게 할 거 / .on 클래스가 추가되면 설명 보이도록 설정 */
+
+.items .description {
+  flex-direction: column;
+  min-height: 180px;
+}
+
+.items .description .content {
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 5px;
+  margin-top: 15px;
+  flex-grow: 1; /* 남아있는 여백을 전부 차지함 */
+}
+
+.items .controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.items .controls .remove {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  background: #fff;
+  text-align: center;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.items .controls .remove i {
+  font-weight: 900;
+  font-size: 1.15rem;
+  line-height: 1;
+  padding: 0;
+}
 
 .items > .item.done {
   text-decoration: line-through; /* 완료시 취소선 표시 */
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  padding: 0 20px 0 33px;
+  height: 40px;
+  line-height: 40px;
+  background: url("../images/radio.png") no-repeat left center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+  background: url("../images/radio_on.png") no-repeat left center;
 }
 
 /* 할일 목록 E */
