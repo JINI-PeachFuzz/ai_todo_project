@@ -6,7 +6,7 @@ const todo = {
   // 초기에 실행할 영역
   init() {
     // 초기화화
-    // init() : 페이지 로드 시 초기설정과 기존 데이터를 불러오는 역할 -> 로드해서 템플릿을 설정해줌줌
+    // init() : 페이지 로드 시 초기설정과 기존 데이터를 불러오는 역할 -> 로드해서 템플릿을 설정해줌
     // 템플릿 HTML 추출
     this.tpl = document.getElementById("tpl").innerHTML;
 
@@ -84,19 +84,20 @@ const todo = {
 
       // 작업 완료, 작업중 처리
       const doneEls = document.getElementsByName(`done_${seq}`);
-      const itemIndex = this.items.findIndex((item) => item.seq === seq); // 값이 넘어오면 index번호로 확인인
+      const itemIndex = this.items.findIndex((item) => item.seq === seq); // 값이 넘어오면 index번호로 확인
       for (const el of doneEls) {
         el.addEventListener("click", function () {
           // 라디오 버튼 클릭 이벤트로 done 값을 변경
-          const done = this.value === "true"; // 체크했을 때 아이템쪽에 false일때 done 클래스를 추가해야하므로로
+          const done = this.value === "true"; // 체크했을 때 아이템쪽에 false일때 done 클래스를 추가해야하므로
           todo.items[itemIndex].done = done;
           todo.render();
+          todo.save(); // 불러온뒤에 저장을 해야지 안그러면 seq 를 넣었을 때 새로고침하면 데이터가 날아감
         });
       }
     }
   },
   accodianView(el) {
-    // 아코디언 효과 .on 클래스제거 -> 선택한 항목에 .on클래스 추가 -> 내용나오게게
+    // 아코디언 효과 .on 클래스제거 -> 선택한 항목에 .on클래스 추가 -> 내용나오게
     const items = document.querySelectorAll(".items > .item");
     items.forEach((item) => item.classList.remove("on"));
 
