@@ -57,7 +57,7 @@ const todo = {
       const checkedFalse = done ? "" : " checked";
 
       html = html
-        .replace(/#{seq}/g, seq) // 정형표현식? g는 전체
+        .replace(/#{seq}/g, seq) // 정규표현식 g는 전체
         .replace(/#{title}/g, title)
         .replace(/#{description}/g, description.replace(/\n/g, "<br>")) // 줄개행문자 br태그로 변경시켰음
         .replace(/#{deadline}/g, deadline)

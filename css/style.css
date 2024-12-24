@@ -2,7 +2,7 @@
 /* 공통 S */
 * {
   font-family: "Jua", serif;
-  box-sizing: border-box; /*패딩같은걸 넣으면 넓이높이가 달라져서 그냥 딱 정하는게 더 괜춘춘*/
+  box-sizing: border-box; /*패딩같은걸 넣으면 넓이높이가 달라져서 그냥 딱 정하는게 더 괜춘*/
   color: #000;
   outline: none; /* 포커스 시 외관선 제거 */
 }
