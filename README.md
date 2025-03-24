@@ -1,9 +1,9 @@
 # Todo List
 
-<a href="https://todo.jinilog.com/" target="_blank">
-  <img src="./img/todo.png" alt="todo" width="400" />
-</a>
-<p>이미지를 클릭하면 배포 사이트가 새 창으로 열립니다.</p>
+<img src="./img/todo.png" alt="todo" width="500" />
+
+[사이트 바로가기](https://todo.jinilog.com/)
+
 
 ### 개발 기간
 2024.12.19 ~ 2024.12.24
