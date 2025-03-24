@@ -4,7 +4,7 @@
     <!--웹 페이지 설정들-->
     <meta charset="UTF-8" />
     <!--인코딩방식-->
-    <title>나의 할일</title>
+    <title>To Do List</title>
     <!--브라우저 탭이나 북마크에서 표시될 페이지 제목-->
     <link
       rel="stylesheet"
@@ -16,11 +16,11 @@
   <body>
     <!--실제 화면에 표시되는 부분들-->
     <main>
-      <h1>나의 할일</h1>
+      <h1>투두투두</h1>
       <form id="frmTodo" name="frmTodo" autocomplete="off">
         <!--자동완성OFF-->
         <dl>
-          <dt>작업 제목</dt>
+          <dt>해야 할 일</dt>
           <dd>
             <input type="text" name="title" />
             <div class="error dn" id="error-title"></div>
@@ -35,7 +35,7 @@
           </dd>
         </dl>
         <dl>
-          <dt>작업 내용</dt>
+          <dt>내용</dt>
           <dd>
             <textarea name="description"></textarea>
             <div class="error dn" id="error-description"></div>

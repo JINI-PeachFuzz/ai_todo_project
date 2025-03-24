@@ -5,7 +5,7 @@ const todo = {
 
   // 초기에 실행할 영역
   init() {
-    // 초기화화
+    // 초기화
     // init() : 페이지 로드 시 초기설정과 기존 데이터를 불러오는 역할 -> 로드해서 템플릿을 설정해줌
     // 템플릿 HTML 추출
     this.tpl = document.getElementById("tpl").innerHTML;

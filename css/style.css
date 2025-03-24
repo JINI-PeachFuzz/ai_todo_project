@@ -12,15 +12,23 @@ html {
   /* background: #f8f8f8; */
   /* background: url("../img/turkey.jpg"); */
   /* position: fixed; */
-  width: 100vw;
-  height: 100vh;
+  /* width: 100vw; */
+  /* height: 100vh; */
+  height: 100%;
   background-size: cover;
-  padding-top: 50px;
+  /* padding: 40px 0px; */
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  overflow-y: auto; /* 스크롤 허용 */
 }
 
 body::before {
   content: ""; /* 가상 요소 사용 */
-  position: absolute;
+  /* position: absolute; */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -34,7 +42,7 @@ body::before {
 main {
   max-width: 650px;
   min-width: 450px;
-  margin: 40px auto; /* 중앙정렬 */
+  margin: 60px auto; /* 중앙정렬 */
   background: #fff;
   border-radius: 25px;
   padding: 35px;
@@ -88,6 +96,7 @@ textarea {
   resize: none; /* 사용자가 입력영역의 크기를 조정할 수 없도록 설정 */
   padding: 10px;
   border-radius: 3px;
+  font-size: 17px;
 }
 
 h1 {
